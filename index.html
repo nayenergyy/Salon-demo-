@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Salon Website Demo | Arun Web Studio</title>
+  <meta name="description" content="Demo salon website by Arun Singh - Online booking, WhatsApp connect, price list, gallery and offers. Perfect for salons & beauty parlours." />
+  <style>
+    :root {
+      --primary: #ff4f7b;
+      --primary-dark: #e63f6a;
+      --bg: #070814;
+      --card-bg: #101322;
+      --accent: #ffd166;
+      --text: #f9fafb;
+      --muted: #a1a5b5;
+      --radius-lg: 18px;
+      --radius-xl: 28px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b1a30 0, #070814 55%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to right, rgba(7,8,20,0.96), rgba(7,8,20,0.88));
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #ffe2ec, #ff4f7b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #121212;
+      box-shadow: 0 0 0 3px rgba(255,79,123,0.4);
+      font-size: 18px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-text span:first-child {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .brand-text span:last-child {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 4px 10px;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.05);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .pill {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 5px 10px;
+      border: 1px solid rgba(255,255,255,0.16);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(to right, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.28);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #ff8fa3);
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(255,79,123,0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 36px rgba(255,79,123,0.55);
+      background: linear-gradient(135deg, var(--primary-dark), #ff748f);
+    }
+
+    .btn-outline {
+      border-radius: 999px;
+      padding: 9px 16px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.06);
+      color: #ffffff;
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-1px);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 26px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+      gap: 26px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 5vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #ff9a9e, #fecfef);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .hero-sub strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--muted);
+      max-width: 360px;
+    }
+
+    .hero-note b {
+      color: var(--accent);
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+    }
+
+    .badge span {
+      color: #f9fafb;
+      font-weight: 600;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, rgba(255,79,123,0.25), transparent 45%), 
+                  radial-gradient(circle at bottom right, rgba(34,197,94,0.15), transparent 40%), 
+                  var(--card-bg);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .hero-salon-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .hero-salon-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .hero-salon-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .status-pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.14);
+      color: #bbf7d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .hero-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .hero-thumb {
+      height: 70px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.1);
+      transform: scale(1.04);
+    }
+
+    .hero-thumb:nth-child(1) img { transform: scale(1.08); }
+    .hero-thumb:nth-child(3) img { transform: scale(1.02); }
+
+    .hero-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .hero-price {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hero-price span {
+      font-size: 17px;
+      color: #f9fafb;
+      font-weight: 700;
+    }
+
+    .hero-range {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-range b {
+      color: var(--accent);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .hero-actions small {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .floating-tag {
+      position: absolute;
+      right: 3px;
+      top: -8px;
+      font-size: 10px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--accent);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Sections */
+    section {
+      padding: 20px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .section-heading h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .section-heading p {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 340px;
+    }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    }
+
+    .card h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .chip {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--muted);
+    }
+
+    .card-price {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Pricing */
+    .pricing-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .pricing-wrap {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .pricing-table {
+      border-radius: var(--radius-lg);
+      background: var(--card-bg);
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .pricing-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 7px 4px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .pricing-table th {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .pricing-table td strong {
+      color: #f9fafb;
+    }
+
+    .pricing-tagline {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .pricing-highlight {
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      background: radial-gradient(circle at top left, rgba(255,79,123,0.3), transparent 60%), #121326;
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .pricing-highlight h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .pricing-highlight p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .pricing-highlight ul {
+      list-style: none;
+      padding-left: 0;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .pricing-highlight li {
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #000;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-label {
+      position: absolute;
+      left: 6px;
+      bottom: 6px;
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.75);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .testimonial {
+      border-radius: var(--radius-lg);
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 12px;
+      font-size: 11px;
+      color: var(--muted);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial::before {
+      content: "★";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 13px;
+      color: #facc15;
+      opacity: 0.9;
+    }
+
+    .testimonial strong {
+      color: #e5e7eb;
+    }
+
+    /* Contact & Booking */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    form {
+      display: grid;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(7,8,20,0.9);
+      padding: 8px 10px;
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(255,79,123,0.5);
+      background: #050616;
+    }
+
+    .contact-card {
+      border-radius: var(--radius-lg);
+      background: var(--card-bg);
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 12px;
+      color: var(--muted);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-card h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #f9fafb;
+    }
+
+    .info-row {
+      margin-bottom: 8px;
+    }
+
+    .info-label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .info-value {
+      font-size: 13px;
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .info-value a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-thickness: 1px;
+    }
+
+    .whatsapp-cta {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .whatsapp-cta small {
+      font-size: 11px;
+      color: var(--muted);
+      max-width: 260px;
+    }
+
+    .whatsapp-btn {
+      background: #22c55e;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #052e16;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 10px 26px rgba(22,163,74,0.55);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(22,163,74,0.7);
+      background: #16a34a;
+    }
+
+    .whatsapp-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #bbf7d0;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 12px 0 18px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-row a {
+      color: var(--muted);
+    }
+
+    .scroll-link {
+      cursor: pointer;
+    }
+
+    .note {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <div class="brand">
+            <div class="brand-logo">AS</div>
+            <div class="brand-text">
+              <span>Arun Web Studio</span>
+              <span>Salon Website Demo</span>
+            </div>
+          </div>
+          <div class="nav-links">
+            <a class="scroll-link" data-target="services">Services</a>
+            <a class="scroll-link" data-target="pricing">Pricing</a>
+            <a class="scroll-link" data-target="gallery">Gallery</a>
+            <a class="scroll-link" data-target="contact">Contact</a>
+            <button class="btn-outline scroll-link" data-target="contact">
+              Demo Booking
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="hero-kicker">
+                <span class="pill">
+                  <span class="pill-dot"></span>
+                  Salon Website Demo – Sirf Link Dekho, Fayda Samjho
+                </span>
+              </div>
+              <h1 class="hero-title">
+                Aapke <span class="highlight">Salon</span> ke liye  
+                online <span class="highlight">booking wali</span> website.
+              </h1>
+              <p class="hero-sub">
+                Jab customer Google, WhatsApp ya Instagram se aapko search kare,  
+                to seedha aapke <strong>professional website</strong> par aaye –  
+                jahan pe woh <strong>prices, services, photos</strong> dekhe  
+                aur turant aapko call / WhatsApp kare.
+              </p>
+              <div class="hero-ctas">
+                <button class="btn-primary scroll-link" data-target="contact">
+                  🔥 Free Demo Request Karein
+                </button>
+                <button class="btn-outline scroll-link" data-target="pricing">
+                  💰 Price Detail Dekhein
+                </button>
+              </div>
+              <p class="hero-note">
+                <b>Entry basic plan ₹3000 se shuru</b> – kaam simple hoga to  
+                price aur kam ho sakta hai. Advance website ka budget  
+                kaam ke hisaab se ₹3000 se ₹20000 tak ja sakta hai.
+              </p>
+
+              <div class="hero-badges">
+                <div class="badge">✅ Online Booking + WhatsApp Button</div>
+                <div class="badge">✅ Photo Gallery &amp; Offers Section</div>
+                <div class="badge">✅ Desi Hindi + English Friendly</div>
+                <div class="badge">✅ Local Search ke liye perfect <span>Demo</span></div>
+              </div>
+            </div>
+
+            <div class="hero-right">
+              <div class="hero-card">
+                <div class="hero-salon-header">
+                  <div>
+                    <div class="hero-salon-title">Glamm Touch Unisex Salon (Demo)</div>
+                    <div class="hero-salon-sub">City Center · “Always Ready for Clients”</div>
+                  </div>
+                  <div class="status-pill">
+                    <span class="status-pill-dot"></span>
+                    Online Booking ON
+                  </div>
+                </div>
+
+                <div class="hero-gallery">
+                  <div class="hero-thumb">
+                    <img src="https://images.pexels.com/photos/3993447/pexels-photo-3993447.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Hair styling" />
+                  </div>
+                  <div class="hero-thumb">
+                    <img src="https://images.pexels.com/photos/3738341/pexels-photo-3738341.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Makeup" />
+                  </div>
+                  <div class="hero-thumb">
+                    <img src="https://images.pexels.com/photos/3738345/pexels-photo-3738345.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Salon interior" />
+                  </div>
+                </div>
+
+                <div class="hero-price-row">
+                  <div class="hero-price">
+                    Website Package From <span>₹3000</span>
+                  </div>
+                  <div class="hero-range">
+                    Basic se <b>₹20000</b> tak –  
+                    <span style="display:block;">work ke hisaab se</span>
+                  </div>
+                </div>
+
+                <div class="hero-actions">
+                  <div>
+                    <button class="whatsapp-btn" onclick="openWhatsApp()">
+                      <span class="whatsapp-dot"></span>
+                      WhatsApp par baat karein
+                    </button>
+                    <small>Ek click mein demo aur pricing detail mangwa sakte hain.</small>
+                  </div>
+                  <div>
+                    <small>📍 Ideal for: Salon · Beauty Parlour · Spa · Makeup Studio</small>
+                  </div>
+                </div>
+              </div>
+              <div class="floating-tag">
+                Demo website by Arun Singh
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="services">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Salon ke liye kya-kya milta hai?</h2>
+              <p>
+                Aapka salon jitna stylish hai, website bhi utni hi smart honi chahiye.
+                Yeh demo aapko real feel dega ki customer ko kya dikhega.
+              </p>
+            </div>
+          </div>
+
+          <div class="services-grid">
+            <div class="card">
+              <h3>Online Booking &amp; WhatsApp Connect</h3>
+              <p>
+                Customer date, time aur service choose karke seedha aapko 
+                WhatsApp / email pe booking request bhej sakta hai.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Instant WhatsApp</span>
+                <span class="chip">Easy form</span>
+              </div>
+              <div class="card-price">Included from basic plan</div>
+            </div>
+
+            <div class="card">
+              <h3>Services &amp; Price List</h3>
+              <p>
+                Haircut, Facial, Makeup, Spa – sabka clear price list so 
+                customer pehle hi idea bana le.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Transparent rates</span>
+                <span class="chip">Men &amp; Women</span>
+              </div>
+              <div class="card-price">Editable anytime</div>
+            </div>
+
+            <div class="card">
+              <h3>Photo Gallery &amp; Before/After</h3>
+              <p>
+                Aapke best makeover photos website pe show honge –  
+                jisse trust aur booking dono badhenge.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Before/After</span>
+                <span class="chip">High quality look</span>
+              </div>
+              <div class="card-price">Great for Instagram leads</div>
+            </div>
+
+            <div class="card">
+              <h3>Offers &amp; Festival Discounts</h3>
+              <p>
+                Shaadi season, Karwa Chauth, Diwali ya weekend offer –
+                sab ke liye alag banner &amp; section.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Custom offer banner</span>
+                <span class="chip">Local marketing</span>
+              </div>
+              <div class="card-price">Perfect for repeat clients</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="pricing">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Website Pricing (Basic se Advance)</h2>
+              <p>
+                Seedha simple baat – aapka kaam jitna simple hoga, website utni    
+                sasti. Jitna advance feature, utna premium.
+              </p>
+            </div>
+          </div>
+
+          <div class="pricing-wrap">
+            <div class="pricing-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Package</th>
+                    <th>Suitable For</th>
+                    <th>Approx. Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Basic Demo</strong></td>
+                    <td>Small salon, simple info</td>
+                    <td>From ₹3000</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Standard</strong></td>
+                    <td>Online booking + gallery</td>
+                    <td>₹5000 – ₹9000*</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Premium</strong></td>
+                    <td>Multiple pages, offers, map</td>
+                    <td>₹10000 – ₹15000*</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Advance Custom</strong></td>
+                    <td>High-end salon, full branding</td>
+                    <td>Up to ₹20000*</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="pricing-tagline">
+                *Final price <strong>kaam ke hisaab se</strong> decide hoga.  
+                Agar requirement simple ho, to isi range se price kam bhi ho sakta hai.
+              </p>
+              <p class="note">
+                Note: Hosting &amp; domain ka cost alag se ho sakta hai, jo aapke naam pe hi rahega.
+              </p>
+            </div>
+
+            <div class="pricing-highlight">
+              <h3>Simple Hindi mein samajhiye 👇</h3>
+              <p>
+                <strong>Entry point sirf ₹3000</strong> – itne mein aapko ek 
+                clean, smart demo website mil sakti hai jisme aapka naam, 
+                number, basic services aur WhatsApp button hoga.
+              </p>
+              <ul>
+                <li><span class="dot"></span> Agar aap bolte hain “sir simple rakho” → price kam.</li>
+                <li><span class="dot"></span> Agar aap bolte hain “sir sab full advance chahiye” → price badhega.</li>
+                <li><span class="dot"></span> Har cheez pe pehle discussion, phir hi final quote.</li>
+              </ul>
+              <button class="btn-primary" onclick="openWhatsApp()">
+                📲 Apna requirement WhatsApp pe bhejien
+              </button>
+              <p class="note">
+                Aap sirf “Hi Arun, salon website chahiye” itna likhke bhi  
+                WhatsApp kar sakte hain – main khud call karke samjha dunga.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="gallery">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Look &amp; Feel – Demo Gallery</h2>
+              <p>
+                Yeh sirf demo photos hain – actual mein hum aapke salon ki 
+                asli photos daal sakte hain, jisse customer ko real look mile.
+              </p>
+            </div>
+          </div>
+
+          <div class="gallery-grid">
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/3738344/pexels-photo-3738344.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Haircut demo" />
+              <div class="gallery-label">Men's Haircut</div>
+            </div>
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/3738348/pexels-photo-3738348.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bridal makeup demo" />
+              <div class="gallery-label">Bridal Makeup</div>
+            </div>
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/3735612/pexels-photo-3735612.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Facial demo" />
+              <div class="gallery-label">Facial &amp; Glow</div>
+            </div>
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/3738349/pexels-photo-3738349.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Salon interior demo" />
+              <div class="gallery-label">Interior Vibes</div>
+            </div>
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/3735639/pexels-photo-3735639.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Spa demo" />
+              <div class="gallery-label">Spa &amp; Relax</div>
+            </div>
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Nail art demo" />
+              <div class="gallery-label">Nail Art</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section>
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Jab client khush, tabhi project successful</h2>
+              <p>
+                Kuch sample lines jo aapka client aapki website live hone ke baad 
+                likh sakta hai – yeh bhi website pe show kiye ja sakte hain.
+              </p>
+            </div>
+          </div>
+
+          <div class="testimonials">
+            <div class="testimonial">
+              “Website ke baad WhatsApp pe booking double ho gayi.  
+              Log pehle rate dekhte hain, phir bina jhijhak call kar dete hain.”
+              <br /><br />
+              <strong>– Demo Salon Owner</strong>
+            </div>
+            <div class="testimonial">
+              “Customer ko photos, services aur location ek hi jagah mil jati hai.  
+              Instagram bio me sirf ek link hai – baki sab kaam website karti hai.”
+              <br /><br />
+              <strong>– Beauty Parlour (Demo)</strong>
+            </div>
+            <div class="testimonial">
+              “Shaadi season mein sirf website link forward karte hain,  
+              client khud hi package select kar leta hai. Time bach jata hai.”
+              <br /><br />
+              <strong>– Bridal Studio (Demo)</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT & BOOKING -->
+      <section id="contact">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Chaliye aapke salon ke liye bhi demo banate hain</h2>
+              <p>
+                Neeche simple sa form bharke bhi demo mangwa sakte hain,  
+                ya seedha WhatsApp button dabake message kar sakte hain.
+              </p>
+            </div>
+          </div>
+
+          <div class="contact-grid">
+            <div>
+              <form onsubmit="return handleFormSubmit(event)">
+                <div>
+                  <label for="name">Aapka naam</label>
+                  <input id="name" name="name" placeholder="Jaise: Rahul Salon" required />
+                </div>
+                <div>
+                  <label for="phone">Mobile number</label>
+                  <input id="phone" name="phone" placeholder="10 digit mobile number" required />
+                </div>
+                <div>
+                  <label for="city">City / Area</label>
+                  <input id="city" name="city" placeholder="Jaise: Jabalpur, MP" />
+                </div>
+                <div>
+                  <label for="type">Salon type</label>
+                  <select id="type" name="type">
+                    <option value="Unisex">Unisex Salon</option>
+                    <option value="Men">Men's Salon</option>
+                    <option value="Women">Ladies Beauty Parlour</option>
+                    <option value="Spa">Spa / Wellness</option>
+                    <option value="Studio">Makeup Studio</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="message">Aapki requirement (short mein)</label>
+                  <textarea id="message" name="message" placeholder="Jaise: basic website chahiye, online booking & price list ke saath..."></textarea>
+                </div>
+                <div>
+                  <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                    ✨ Demo Request WhatsApp ke through bheje
+                  </button>
+                  <p class="note">
+                    Form submit karte hi WhatsApp open hoga jahan yeh detail  
+                    auto-fill ho jayegi – aap bas send kar dijiyega.
+                  </p>
+                </div>
+              </form>
+            </div>
+
+            <div class="contact-card">
+              <h3>Direct Contact – Arun Singh</h3>
+              <div class="info-row">
+                <div class="info-label">WhatsApp Number</div>
+                <div class="info-value">
+                  <a href="https://wa.me/918435317469" target="_blank" rel="noopener">
+                    +91 84353 17469
+                  </a>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Email</div>
+                <div class="info-value">
+                  <a href="mailto:arunsinghsingh755@gmail.com">
+                    arunsinghsingh755@gmail.com
+                  </a>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Demo Purpose</div>
+                <div class="info-value">
+                  Ye website <strong>demo</strong> ke liye hai –  
+                  real project mein sab kuch aapke salon ke naam se hoga.
+                </div>
+              </div>
+
+              <div class="whatsapp-cta">
+                <button class="whatsapp-btn" onclick="openWhatsApp()">
+                  <span class="whatsapp-dot"></span>
+                  Now Chat on WhatsApp
+                </button>
+                <small>
+                  Bina form bhare bhi aap sirf “Hi Arun, salon website ke baare mein  
+                  details chahiye” likh kar WhatsApp kar sakte hain.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-row">
+          <div>
+            © <span id="year"></span> Demo Salon Website · Made for presentation by Arun Singh.
+          </div>
+          <div>
+            <a class="scroll-link" data-target="hero">⬆ Upar wapas jayein</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Smooth scroll for nav
+    document.querySelectorAll('.scroll-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var targetId = this.getAttribute('data-target');
+        if (!targetId) return;
+        var section = document.getElementById(targetId);
+        if (!section && targetId === 'hero') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        if (section) {
+          var offsetTop = section.offsetTop - 70;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Open WhatsApp with default message
+    function openWhatsApp(text) {
+      var base = "https://wa.me/918435317469";
+      var msg =
+        text ||
+        "Namaste Arun, mujhe apne salon ke liye website ke baare mein details chahiye.";
+      var url = base + "?text=" + encodeURIComponent(msg);
+      window.open(url, "_blank");
+    }
+
+    // On form submit, send data to WhatsApp
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var city = document.getElementById('city').value.trim();
+      var type = document.getElementById('type').value;
+      var message = document.getElementById('message').value.trim();
+
+      var text =
+        "Salon Website Demo Request%0A%0A" +
+        "Naam: " + name + "%0A" +
+        "Mobile: " + phone + "%0A" +
+        "City/Area: " + (city || "-") + "%0A" +
+        "Salon Type: " + type + "%0A" +
+        "Requirement: " + (message || "short mein discuss karna hai") + "%0A%0A" +
+        "Please demo aur pricing detail share kijiye.";
+
+      openWhatsApp(decodeURIComponent(text));
+      return false;
+    }
+  </script>
+</body>
+</html>
